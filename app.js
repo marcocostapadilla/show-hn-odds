@@ -35,7 +35,7 @@
 
   function bars(el, rows, opts) {
     // rows: [{label, value, text}]
-    var W = 720, rowH = opts.rowH || 26, left = opts.left || 90, right = 70;
+    var W = Math.max(280, Math.min(720, (el.clientWidth || 720) - 16)), rowH = opts.rowH || 26, left = opts.left || 70, right = 96;
     var H = rows.length * rowH + 8;
     var max = Math.max.apply(null, rows.map(function (r) { return r.value; })) || 1;
     var s = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' + esc(opts.title) + '">';
@@ -49,7 +49,11 @@
     el.innerHTML = s + "</svg>";
   }
 
+  var lastRender = null;
   function render(posts, fetchedAt) {
+    $("status").hidden = true;
+    $("results").hidden = false;
+    lastRender = function () { render(posts, fetchedAt); };
     var pts = posts.map(function (h) { return h.points || 0; });
     var n = pts.length;
     if (!n) throw new Error("The API returned no posts.");
@@ -99,8 +103,11 @@
     try {
       var posts = await fetchPosts(cutoff);
       render(posts, fetchedAt);
+      var t; window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(lastRender, 200); });
     } catch (err) {
       var st = $("status");
+      st.hidden = false;
+      $("results").hidden = true;
       st.className = "status error";
       st.innerHTML = "Could not load data from the HN Algolia API (" + esc(err.message || err) +
         "). It may be down or blocked on your network. Please try again later, or " +
