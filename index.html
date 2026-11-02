@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Show HN odds</title>
+<meta name="description" content="How Show HN launches on Hacker News actually score. Live numbers from the last 1,000 settled Show HN posts.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Show HN odds">
+<meta property="og:description" content="How Show HN launches actually score. Live numbers from the last 1,000 settled Show HN posts.">
+<meta property="og:url" content="https://marcocostapadilla.github.io/show-hn-odds/">
+<meta property="og:image" content="https://marcocostapadilla.github.io/show-hn-odds/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Show HN odds">
+<meta name="twitter:description" content="How Show HN launches actually score. Live numbers from the last 1,000 settled Show HN posts.">
+<meta name="twitter:image" content="https://marcocostapadilla.github.io/show-hn-odds/og.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>Show HN odds</h1>
+  <p class="lede">How Show HN launches on Hacker News actually score, so you can see the odds before you launch.</p>
+
+  <p id="status" class="status">Loading live data from the HN Algolia API...</p>
+
+  <section id="results" hidden>
+    <div class="cards">
+      <div class="card"><div class="num" id="median">-</div><div class="lbl">median points</div></div>
+      <div class="card"><div class="num" id="p10">-</div><div class="lbl">reach 10+ points</div></div>
+      <div class="card"><div class="num" id="p50">-</div><div class="lbl">reach 50+ points</div></div>
+      <div class="card"><div class="num" id="p100">-</div><div class="lbl">reach 100+ points</div></div>
+    </div>
+    <p class="meta" id="meta"></p>
+
+    <h2>Points per post</h2>
+    <p class="note">Number of posts in each points range. Ranges grow roughly by powers of two and ten.</p>
+    <div id="hist" class="chart"></div>
+
+    <h2>Share reaching 10+ points, by weekday (UTC)</h2>
+    <div id="weekday" class="chart"></div>
+
+    <h2>Share reaching 10+ points, by hour posted (UTC)</h2>
+    <p class="note">Some hours have few posts, so read this loosely.</p>
+    <div id="hour" class="chart"></div>
+
+    <h2>How this works</h2>
+    <p class="note">Each time you open this page, your browser asks the public HN Algolia API for the most recent 1,000 Show HN posts that are at least 48 hours old. Newer posts are left out because their points are still moving. Points are as reported by the API at fetch time. Nothing is stored and there is no tracking.</p>
+  </section>
+</main>
+<footer>
+  Built by bots for @RookAndTerence. Data: HN Algolia API. <a href="https://github.com/marcocostapadilla/show-hn-odds">Source on GitHub</a>.
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
