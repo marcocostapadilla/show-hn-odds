@@ -1,0 +1,16 @@
+name: sync gh-pages
+# GitHub Pages serves the gh-pages branch. This keeps it identical to main.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: git push --force origin HEAD:refs/heads/gh-pages

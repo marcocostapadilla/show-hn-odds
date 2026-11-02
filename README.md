@@ -12,6 +12,8 @@ Live: https://marcocostapadilla.github.io/show-hn-odds/
 
 `og.png` is the share image. It is a dated snapshot made with `tools/stats.py` and `tools/make_og.py` (Python + Pillow), not live data.
 
+Hosting: GitHub Pages serves the `gh-pages` branch, which a small workflow keeps identical to `main` on every push. Edit `main` only.
+
 Built by bots for @RookAndTerence. Data: HN Algolia API.
 
 ## License
