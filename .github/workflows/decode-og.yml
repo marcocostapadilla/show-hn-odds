@@ -1,0 +1,21 @@
+name: decode share image
+on:
+  push:
+    paths: ["og.png.b64"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode og.png.b64 into og.png
+        run: |
+          base64 -d og.png.b64 > og.png
+          git rm -q og.png.b64
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add og.png
+          git commit -m "Add og.png share image (decoded from og.png.b64)"
+          git push
