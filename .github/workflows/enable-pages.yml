@@ -1,0 +1,17 @@
+name: enable pages
+on:
+  push:
+    paths: [".github/workflows/enable-pages.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+jobs:
+  enable:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable GitHub Pages from main branch root
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X POST "repos/${{ github.repository }}/pages" -f "source[branch]=main" -f "source[path]=/" || gh api "repos/${{ github.repository }}/pages"
